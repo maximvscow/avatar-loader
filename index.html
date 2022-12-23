@@ -6,12 +6,19 @@
     <title>My avatar</title>
 </head>
 <body>
-<div class="resize-container">
-    <span class="resize-handle resize-handle-nw"></span>
-    <span class="resize-handle resize-handle-ne"></span>
-    <img class="resize-image" src="./src/img/armas.jpg" alt="Image"/>
-    <span class="resize-handle resize-handle-sw"></span>
-    <span class="resize-handle resize-handle-se"></span>
-</div>
+    <div class="component">
+        <div class="overlay">
+            <div class="overlay-inner">
+            </div>
+        </div>
+        <div class="resize-container">
+            <span class="resize-handle resize-handle-nw"></span>
+            <span class="resize-handle resize-handle-ne"></span>
+                <img class="resize-image" src="./src/img/armas.jpg" alt="Image"/>
+            <span class="resize-handle resize-handle-sw"></span>
+            <span class="resize-handle resize-handle-se"></span>
+        </div>
+        <button class="btn-crop js-crop">Crop</button>
+    </div>
 </body>
 </html>
