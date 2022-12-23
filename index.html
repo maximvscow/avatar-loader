@@ -1,11 +1,16 @@
 <!doctype html>
-<html lang=ru>
+<html lang='ru'>
 <head>
+     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css" type="text/css"/>
     <script src="main.js"></script>
     <title>My avatar</title>
 </head>
 <body>
+    <div class="component container header">
+        <img class="avatar width-full" src="./src/img/default.png" width="40px" height="40px">
+        <span>Это ваш новый аватар</span>
+    </div>
     <div class="component">
         <div class="overlay">
             <div class="overlay-inner">
@@ -18,7 +23,11 @@
             <span class="resize-handle resize-handle-sw"></span>
             <span class="resize-handle resize-handle-se"></span>
         </div>
-        <button class="btn-crop js-crop">Crop</button>
+    </div>
+    <div class="component container">
+            <button class="btn-crop js-crop">Обрезать</button>
+            <button class="btn-crop">Загрузить</button>
+            <button class="btn-crop">Сделать фото</button>
     </div>
 </body>
 </html>

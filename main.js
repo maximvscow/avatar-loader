@@ -69,6 +69,7 @@ var resizeableImage = function(image_target) {
             height = mouse.y  - event_state.container_top;
             left = mouse.x;
             top = event_state.container_top;
+            console.log(top)
         } else if(event_state.evnt.target.classList.contains('resize-handle-nw') ){
             width = event_state.container_width - (mouse.x - event_state.container_left);
             height = event_state.container_height - (mouse.y - event_state.container_top);
@@ -137,7 +138,6 @@ var resizeableImage = function(image_target) {
         overlay_pic = document.querySelector('.overlay');
         left = overlay_pic.getBoundingClientRect().left - container.getBoundingClientRect().left,
         top1 =  overlay_pic.getBoundingClientRect().top - container.getBoundingClientRect().top,
-        console.log(top1)
         width = overlay_pic.getBoundingClientRect().width,
         height = overlay_pic.getBoundingClientRect().height;
 
@@ -147,7 +147,7 @@ var resizeableImage = function(image_target) {
 
         crop_canvas.getContext('2d').drawImage(image_target, left, top1, width, height, 0, 0, width, height); // , 0, 0, width, height
         cropped_img = crop_canvas.toDataURL("image/png");
-        
+
     }
 
     init();

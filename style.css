@@ -1,3 +1,7 @@
+body {
+    font: 1.2em "Arial", bold;
+
+}
 .resize-container {
     position: relative;
     display: inline-block;
@@ -53,7 +57,6 @@
 
 .component {
     position: relative;
-    padding: 4em;
     height: 500px;
     border: 3px solid #49708A;
     max-width: 901px;
@@ -127,15 +130,28 @@
     margin-top: -2px;
 }
 
+P { text-align: center }
+
 .btn-crop {
-    position: absolute;
-    vertical-align: bottom;
-    right: 5px;
-    bottom: 5px;
     padding: 6px 10px;
     z-index: 999;
     background-color: rgb(222,60,80);
     border: none;
     border-radius: 5px;
     color: #FFF;
+    cursor: pointer;
 }
+
+.container {
+    padding: 20px 0px;
+    height: 45px;
+}
+
+.header {
+
+}
+
+.avatar {
+    overflow: hidden;
+}
+
