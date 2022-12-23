@@ -19,6 +19,7 @@ var resizeableImage = function(image_target) {
         container.querySelector('.resize-handle-sw').addEventListener("mousedown", startResize);
         container.querySelector('.resize-handle-se').addEventListener("mousedown", startResize);
         document.querySelector('.js-crop').addEventListener("click", crop);
+        document.querySelector('.btn-input').addEventListener("click", fileUpload);
 
     }
 
@@ -150,7 +151,26 @@ var resizeableImage = function(image_target) {
         avatar = document.querySelector('.avatar');
         avatar.setAttribute("src", cropped_img);
 
-    }
+    };
+
+    fileUpload = function() {
+        input = document.querySelector('.input');
+        input.click();
+        input.addEventListener('change', () => {
+            img1 = input.files[0]
+            reader = new FileReader();
+            reader.onload = function (e) {
+                target_image = container.querySelector('.resize-image');
+                target_image.setAttribute("src", e.target.result);
+                e.target.result
+            }
+            src1 = reader.readAsDataURL(img1);
+            //console.log(src1)
+        });
+
+    };
+
+
 
     init();
 

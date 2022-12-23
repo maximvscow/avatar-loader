@@ -162,3 +162,7 @@ P { text-align: center }
     border-radius: 50%;
 }
 
+.input {
+    display: none;
+}
+
