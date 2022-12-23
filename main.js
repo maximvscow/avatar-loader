@@ -147,6 +147,8 @@ var resizeableImage = function(image_target) {
 
         crop_canvas.getContext('2d').drawImage(image_target, left, top1, width, height, 0, 0, width, height); // , 0, 0, width, height
         cropped_img = crop_canvas.toDataURL("image/png");
+        avatar = document.querySelector('.avatar');
+        avatar.setAttribute("src", cropped_img);
 
     }
 

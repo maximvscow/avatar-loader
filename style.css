@@ -144,14 +144,21 @@ P { text-align: center }
 
 .container {
     padding: 20px 0px;
-    height: 45px;
+    height: 50px;
 }
 
 .header {
-
+    display: flex;
+    align-items: center;
+    justify-content: start;
 }
 
 .avatar {
     overflow: hidden;
+    margin-right: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 2px solid rgba(222,60,80,.9);
+    border-radius: 50%;
 }
 
