@@ -153,8 +153,13 @@ var resizeableImage = function(image_target) {
 
     };
 
-    fileUpload = function() {
+    init();
+
+    };
+
+fileUpload = function() {
         input = document.querySelector('.input');
+        container =  document.querySelector('.resize-container');
         input.click();
         input.addEventListener('change', () => {
             img1 = input.files[0]
@@ -163,24 +168,19 @@ var resizeableImage = function(image_target) {
                 target_image = container.querySelector('.resize-image');
                 target_image.setAttribute("src", e.target.result);
                 e.target.result
+                resizeableImage(target_image);
             }
             src1 = reader.readAsDataURL(img1);
-            //console.log(src1)
+        // input.removeEventListener('change');
         });
-
-    };
-
-
-
-    init();
 
     };
 
 window.addEventListener('load', function() {
 
     res_image = document.querySelector(".resize-image");
-
     resizeableImage(res_image);
+
 
 });
 
