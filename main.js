@@ -20,6 +20,8 @@ var resizeableImage = function(image_target) {
         container.querySelector('.resize-handle-se').addEventListener("mousedown", startResize);
         document.querySelector('.js-crop').addEventListener("click", crop);
         document.querySelector('.btn-input').addEventListener("click", fileUpload);
+        document.querySelector('.btn-cam').addEventListener("click", webcamStart);
+        document.querySelector('.btn-snapshot').addEventListener("click", makeSnapshot);
 
     }
 
@@ -176,11 +178,42 @@ fileUpload = function() {
 
     };
 
+webcamStart = function() {
+        var video = document.querySelector(".video");
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+                console.log("Something went wrong!");
+            });
+
+        document.querySelector(".btn-snapshot").style.visibility = "visible";
+}
+}
+
+makeSnapshot = function() {
+        video = document.querySelector(".video");
+        width = video.getBoundingClientRect().width;
+        height = video.getBoundingClientRect().height;
+        console.log(width, height);
+        container =  document.querySelector('.resize-container');
+        snapshot_canvas = document.createElement('canvas');
+        snapshot_canvas.height = height;
+        snapshot_canvas.width = width;
+        snapshot_canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+        snapshot = snapshot_canvas.toDataURL("image/png");
+        target_image = container.querySelector('.resize-image');
+        target_image.setAttribute("src", snapshot);
+        resizeableImage(target_image);
+}
+
 window.addEventListener('load', function() {
 
     res_image = document.querySelector(".resize-image");
     resizeableImage(res_image);
-
 
 });
 

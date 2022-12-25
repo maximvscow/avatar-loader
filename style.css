@@ -166,3 +166,8 @@ P { text-align: center }
     display: none;
 }
 
+.btn-snapshot {
+    visibility: hidden;
+    background-color: blue;
+}
+
