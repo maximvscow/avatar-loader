@@ -1,5 +1,5 @@
 var resizeableImage = function(image_target) {
-
+    // определение переменных
     var container,
     orig_src = new Image(),
     event_state = {},
@@ -9,7 +9,7 @@ var resizeableImage = function(image_target) {
     max_width = 800,
     max_height = 900,
     resize_canvas = document.createElement('canvas');
-
+    // инициализирующая функция, которая определяет функции при определённом действии
     init = function(e) {
         orig_src.src = image_target.src;
         container =  document.querySelector('.resize-container');
@@ -24,7 +24,7 @@ var resizeableImage = function(image_target) {
         document.querySelector('.btn-snapshot').addEventListener("click", makeSnapshot);
 
     }
-
+    // Функция начала масштабирования
     startResize = function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -33,13 +33,13 @@ var resizeableImage = function(image_target) {
         document.addEventListener("mouseup", endResize);
 
     };
-
+    // Функция окончалия действия масштабирования
     endResize = function(e){
         e.preventDefault();
         document.removeEventListener("mousemove", resizing);
         document.removeEventListener("mouseup", endResize);
     };
-
+    // Функция сохранения каждого момента
     saveEventState = function(e){
         event_state.container_width = container.getBoundingClientRect().width;
         event_state.container_height = container.getBoundingClientRect().height;
@@ -48,10 +48,10 @@ var resizeableImage = function(image_target) {
         event_state.mouse_x = e.clientX;
         event_state.mouse_y = e.clientY;
         event_state.evnt = e;
-        // console.log(event_state)
-    };
 
-  resizing = function(e){
+    };
+    // Главная функция масштабирования
+    resizing = function(e){
         var mouse={},
         width,
         height,
@@ -60,7 +60,7 @@ var resizeableImage = function(image_target) {
         offset = container.getBoundingClientRect();
         mouse.x = e.clientX;
         mouse.y = e.clientY;
-
+        // для каждого квадратика в углу изображения вызываем функцию перемещения по вычислению размеров относительно курсора мыши
         if( event_state.evnt.target.classList.contains('resize-handle-se') ){
             width = mouse.x - event_state.container_left;
             height = mouse.y  - event_state.container_top;
@@ -94,14 +94,11 @@ var resizeableImage = function(image_target) {
         if(constrain || e.shiftKey){
             height = width / orig_src.width * orig_src.height;
         }
-        if(width > min_width && height > min_height && width < max_width && height < max_height){
+        if(width > min_width && height > min_height && width < max_width && height < max_height){ // ограничили размер мин и макс
             resizeImage(width, height);
-            // container.style.left = left + 'px';
-            // container.style.top = top + 'px';
-            }
-
+        }
   }
-
+    // Функция рисования изображения с изменённым размером
     resizeImage = function(width, height){
         resize_canvas.width = width;
         resize_canvas.height = height;
@@ -110,7 +107,7 @@ var resizeableImage = function(image_target) {
         resized_img = resize_canvas.toDataURL("image/png");
         image_target.setAttribute("src", resized_img);
     };
-
+    // Функция начала перемещения
     startMoving = function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -118,13 +115,13 @@ var resizeableImage = function(image_target) {
         document.addEventListener("mousemove", moving);
         document.addEventListener("mouseup", endMoving);
     };
-
+    // Функция окончания перемещения
     endMoving = function(e){
         e.preventDefault();
         document.removeEventListener("mousemove", moving);
         document.removeEventListener("mouseup", endMoving);
     };
-
+    // Функция перемещения
     moving = function(e){
         var  mouse={};
         e.preventDefault();
@@ -134,11 +131,10 @@ var resizeableImage = function(image_target) {
         container.style.left = (mouse.x - event_state.mouse_x) + 'px'; // (event_state.mouse_x - event_state.container_left)
         container.style.top = (mouse.y - event_state.mouse_y) + 'px'; // (event_state.mouse_y - event_state.container_top)
     };
-
+    // Функция обрезки изображения
     crop = function(){
-    //Find the part of the image that is inside the crop box
         var crop_canvas,
-        overlay_pic = document.querySelector('.overlay');
+        overlay_pic = document.querySelector('.overlay'); // Поиск части изображения, кооторая находится за пределами рамки
         left = overlay_pic.getBoundingClientRect().left - container.getBoundingClientRect().left,
         top1 =  overlay_pic.getBoundingClientRect().top - container.getBoundingClientRect().top,
         width = overlay_pic.getBoundingClientRect().width,
@@ -154,11 +150,11 @@ var resizeableImage = function(image_target) {
         avatar.setAttribute("src", cropped_img);
 
     };
-
+    // Вызов функции инициализации
     init();
 
     };
-
+// Функция загрузки изображения
 fileUpload = function() {
         input = document.querySelector('.input');
         container =  document.querySelector('.resize-container');
@@ -170,14 +166,12 @@ fileUpload = function() {
                 target_image = container.querySelector('.resize-image');
                 target_image.setAttribute("src", e.target.result);
                 e.target.result
-                resizeableImage(target_image);
+                resizeableImage(target_image); // Заново инициируем функция доступности изображения к масштабированию
             }
             src1 = reader.readAsDataURL(img1);
-        // input.removeEventListener('change');
         });
-
     };
-
+// Функция запуска вебкамеры
 webcamStart = function() {
         var video = document.querySelector(".video");
 
@@ -189,11 +183,10 @@ webcamStart = function() {
             .catch(function (err0r) {
                 console.log("Something went wrong!");
             });
-
         document.querySelector(".btn-snapshot").style.visibility = "visible";
+    }
 }
-}
-
+// Функция выполнения снимка с вебкамеры
 makeSnapshot = function() {
         video = document.querySelector(".video");
         width = video.getBoundingClientRect().width;
@@ -203,17 +196,17 @@ makeSnapshot = function() {
         snapshot_canvas = document.createElement('canvas');
         snapshot_canvas.height = height;
         snapshot_canvas.width = width;
-        snapshot_canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-        snapshot = snapshot_canvas.toDataURL("image/png");
+        snapshot_canvas.getContext('2d').drawImage(video, 0, 0, width, height); // отрисовываем на канве картинку с видео
+        snapshot = snapshot_canvas.toDataURL("image/png"); // делаем из неё ссылку для помещения в атрибут "src"
         target_image = container.querySelector('.resize-image');
         target_image.setAttribute("src", snapshot);
-        resizeableImage(target_image);
+        resizeableImage(target_image); // заново вызываем функцию доступности к масштабированию
 }
-
+// Функция ожидания загрузки всеё страницы, после которой вызываем главную функцию масштабирования
 window.addEventListener('load', function() {
 
     res_image = document.querySelector(".resize-image");
-    resizeableImage(res_image);
+    resizeableImage(res_image); // вызываем функцию доступности к масштабированию
 
 });
 
